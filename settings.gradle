@@ -1,0 +1,5 @@
+rootProject.name = 'almas'
+
+include 'almas-common'
+include 'almas-core'
+include 'almas-admin'
