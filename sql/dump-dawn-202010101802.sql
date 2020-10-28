@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.30, for Win64 (x86_64)
 --
--- Host: localhost    Database: dawn
+-- Host: localhost    Database: adam
 -- ------------------------------------------------------
 -- Server version	5.7.30
 
@@ -99,6 +99,7 @@ CREATE TABLE `y_sys_dict` (
   `disable` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '是否禁用 0:否 1:是',
   `sort` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1' COMMENT '排序 数字越大越靠前',
   `remark` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '备注 0:否 1:是',
+  `deleted` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '逻辑删除 0:否 1:是',
   `created_by` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '创建人',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_by` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新人',
@@ -202,8 +203,11 @@ CREATE TABLE `y_sys_role_menu` (
   `id` bigint(32) NOT NULL COMMENT '主键 唯一ID',
   `role_id` bigint(32) NOT NULL COMMENT '角色id',
   `menu_id` bigint(32) NOT NULL COMMENT '菜单id',
+  `deleted` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '逻辑删除 0:否 1:是',
   `created_by` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '创建人',
   `created_time` datetime NOT NULL COMMENT '创建时间',
+  `updated_by` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新人',
+  `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='系统角色-权限关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -276,8 +280,11 @@ CREATE TABLE `y_sys_user_role` (
   `id` bigint(32) NOT NULL COMMENT '主键 唯一ID',
   `user_id` bigint(32) NOT NULL COMMENT '用户id',
   `role_id` bigint(32) NOT NULL COMMENT '角色id',
+  `deleted` char(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '逻辑删除 0:否 1:是',
   `created_by` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '创建人',
   `created_time` datetime NOT NULL COMMENT '创建时间',
+  `updated_by` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '更新人',
+  `updated_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='系统用户-角色关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -304,4 +311,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-10 18:02:31
+-- Dump completed on 2020-10-19 19:04:07

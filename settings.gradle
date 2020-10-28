@@ -1,5 +1,5 @@
-rootProject.name = 'almas'
+rootProject.name = 'adam'
 
-include 'almas-common'
-include 'almas-core'
-include 'almas-admin'
+include 'adam-common'
+include 'adam-core'
+include 'adam-admin'

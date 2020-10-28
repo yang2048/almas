@@ -1,0 +1,11 @@
+/* 子模块项目名，jar名 */
+archivesBaseName = 'adam-admin'
+description = "this is gradle api demo"
+
+dependencies {
+	implementation project(':adam-common')
+}
+
+test {
+	useJUnitPlatform()
+}
