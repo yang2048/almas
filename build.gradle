@@ -51,14 +51,12 @@ subprojects {
 
     //配置依赖
     dependencies {
-//        implementation 'org.springframework.boot:spring-boot-starter-actuator'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
-//        implementation 'io.springfox:springfox-swagger2:2.10.5'
         implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:2.0.5'
-//	implementation 'org.springframework.boot:spring-boot-starter-amqp'
-//	implementation 'org.springframework.boot:spring-boot-starter-quartz'
-//        compile 'com.google.guava:guava:20.0'
+	    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+        implementation 'org.springframework.boot:spring-boot-starter-quartz'
         compile 'cn.hutool:hutool-all:5.4.4'
+        compile("org.springframework.boot:spring-boot-starter-actuator")
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.0'
 
         //代码生成

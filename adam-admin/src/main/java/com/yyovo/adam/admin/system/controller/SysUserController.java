@@ -1,8 +1,13 @@
 package com.yyovo.adam.admin.system.controller;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yyovo.adam.admin.system.model.dto.UserEditDTO;
+import com.yyovo.adam.admin.system.model.dto.UserQueryDTO;
 import com.yyovo.adam.admin.system.model.pojo.SysUser;
 import com.yyovo.adam.admin.system.service.ISysUserService;
 import com.yyovo.adam.common.base.controller.BaseController;
@@ -10,6 +15,7 @@ import com.yyovo.adam.common.base.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -34,7 +40,7 @@ public class SysUserController extends BaseController {
      * @return
      */
     @PostMapping
-    private Result<?> add(@RequestBody SysUser user) {
+    private Result<?> add(@RequestBody @Valid UserEditDTO user) {
 //        SysUser user = new SysUser();
 //        user.setNickname("admin");
 //        user.setUserAccount("admin");
@@ -54,7 +60,7 @@ public class SysUserController extends BaseController {
      * @return
      */
     @PatchMapping
-    private Result<?> update(@PathVariable("id") String id, @RequestBody SysUser user) {
+    private Result<?> update(@PathVariable("id") String id, @RequestBody UserEditDTO user) {
         return Result.success();
     }
 
@@ -83,21 +89,24 @@ public class SysUserController extends BaseController {
     /**
      * 获取列表
      *
-     * @param user
+     * @param user 用户
      * @return
      */
     @GetMapping
-    private Result<?> fetch(@RequestBody SysUser user) {
+    private Result<?> fetch(UserQueryDTO user) {
         LambdaQueryWrapper<SysUser> a= Wrappers.lambdaQuery();
         a.eq(SysUser::getAvatar, "q");
         a.orderByDesc(SysUser::getId);
 
-        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        QueryWrapper<SysUser> wrapper = Wrappers.query();
         wrapper.select("age, count(age) as count")
-                .groupBy("age");
+               .groupBy("age");
 
-        List<SysUser> userList = sysUserService.list(a);
-        return Result.success(userList);
+        IPage<SysUser> page = new Page<>(1, 5);
+        page = sysUserService.page(page, a);
+
+        List<SysUser> userList = page.getRecords();
+        return Result.success(page);
     }
 
     /**

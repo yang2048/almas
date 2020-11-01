@@ -5,6 +5,7 @@ import com.yyovo.adam.admin.system.constant.GenderEnum;
 import com.yyovo.adam.common.base.model.BaseModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

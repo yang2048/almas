@@ -9,18 +9,18 @@ spring:
     host: localhost
     port: 5672
     virtual-host: /
-    username:
-    password:
+    username: guest
+    password: guest
   datasource:
     druid:
       name: adam-test
-      url: jdbc:mysql://localhost:3306/dawn?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://localhost:3306/almas?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
       username: root
-      password: 123456
-      validationQuery: SELECT 1 FROM DUAL
-      filters: [stat,wall,log4j]
-      useGlobalDataSourceStat: true
-      test-while-idle: false
+      password: root
+#      validationQuery: SELECT 1 FROM DUAL
+#      filters: [stat,wall,log4j]
+#      useGlobalDataSourceStat: true
+#      test-while-idle: false
       stat-view-servlet:
         enabled: true
         url-pattern: /druid/*
