@@ -1,4 +1,4 @@
-package com.yyovo.adam.core.config;
+package com.yyovo.adam.common.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.yyovo.adam.core.handler;
+package com.yyovo.adam.common.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +9,7 @@ public enum SystemError implements ErrorType {
 
     SYSTEM_ERROR(-1, "系统异常"),
     SYSTEM_BUSY(500, "系统繁忙,请稍候再试"),
+    ARG_ERROR(500, "参数异常"),
     SYSTEM_CONVERT(501, "数据转换错误");
 
     /**

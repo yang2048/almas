@@ -1,4 +1,4 @@
-package com.yyovo.adam.core.handler;
+package com.yyovo.adam.common.handler;
 
 public interface ErrorType {
 

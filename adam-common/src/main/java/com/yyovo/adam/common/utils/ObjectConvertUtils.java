@@ -1,9 +1,9 @@
-package com.yyovo.adam.core.utils;
+package com.yyovo.adam.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yyovo.adam.core.handler.ApiRuntimeException;
-import com.yyovo.adam.core.handler.SystemError;
+import com.yyovo.adam.common.handler.ApiRuntimeException;
+import com.yyovo.adam.common.handler.SystemError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 

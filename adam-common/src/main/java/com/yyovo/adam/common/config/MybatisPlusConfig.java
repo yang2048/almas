@@ -1,4 +1,4 @@
-package com.yyovo.adam.core.config;
+package com.yyovo.adam.common.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;

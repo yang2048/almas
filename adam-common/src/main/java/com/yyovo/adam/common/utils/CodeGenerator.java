@@ -1,4 +1,4 @@
-package com.yyovo.adam.core.utils;
+package com.yyovo.adam.common.utils;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;

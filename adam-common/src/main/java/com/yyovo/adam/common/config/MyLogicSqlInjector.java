@@ -1,4 +1,4 @@
-package com.yyovo.adam.core.config;
+package com.yyovo.adam.common.config;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;

@@ -1,4 +1,4 @@
-package com.yyovo.adam.core.config;
+package com.yyovo.adam.common.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
