@@ -9,22 +9,22 @@ import java.io.Serializable;
 @Setter
 public class ApiRuntimeException extends RuntimeException implements Serializable {
 
-    private ErrorType errorType;
+    private IErrorType errorType;
 
     public ApiRuntimeException() {
         this.errorType = SystemError.SYSTEM_ERROR;
     }
 
-    public ApiRuntimeException(ErrorType errorType) {
+    public ApiRuntimeException(IErrorType errorType) {
         this.errorType = errorType;
     }
 
-    public ApiRuntimeException(ErrorType errorType, String message) {
+    public ApiRuntimeException(IErrorType errorType, String message) {
         super(message);
         this.errorType = errorType;
     }
 
-    public ApiRuntimeException(ErrorType errorType, String message, Throwable cause) {
+    public ApiRuntimeException(IErrorType errorType, String message, Throwable cause) {
         super(message, cause);
         this.errorType = errorType;
     }

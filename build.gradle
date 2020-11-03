@@ -73,6 +73,8 @@ subprojects {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
         testImplementation 'org.springframework.amqp:spring-rabbit-test'
+
+        compile 'com.alibaba:fastjson:1.2.74'
     }
     dependencyManagement {
         imports {

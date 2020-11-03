@@ -1,7 +1,5 @@
 package com.yyovo.adam.admin.system.controller;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.spring.SpringUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -13,8 +11,7 @@ import com.yyovo.adam.admin.system.model.pojo.SysUser;
 import com.yyovo.adam.admin.system.service.ISysUserService;
 import com.yyovo.adam.common.base.controller.BaseController;
 import com.yyovo.adam.common.base.model.Result;
-import com.yyovo.adam.common.handler.ApiRuntimeException;
-import com.yyovo.adam.common.handler.SystemError;
+import com.yyovo.adam.common.utils.ConvertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +40,7 @@ public class SysUserController extends BaseController {
      * @return
      */
     @PostMapping
-    private Result<?> add(@RequestBody @Valid UserEditDTO user) {
+    private Result<?> add(@RequestBody @Valid UserEditDTO userEditDTO) {
 //        SysUser user = new SysUser();
 //        user.setNickname("admin");
 //        user.setUserAccount("admin");
@@ -51,11 +48,14 @@ public class SysUserController extends BaseController {
 //        user.setUserType("0");
 //        user.setPhone("138000000000");
 //        user.setEmail("123");
-//        sysUserService.save(user);
-        if (StrUtil.isBlank(user.getRemark())) {
-            throw new ApiRuntimeException(SystemError.ARG_ERROR);
-        }
-        return Result.success();
+        SysUser user = ConvertUtil.copyToDest(userEditDTO, SysUser.class);
+        sysUserService.save(user);
+
+//        if (StrUtil.isBlank(user.getRemark())) {
+//            throw new ApiRuntimeException(SystemError.ARG_ERROR);
+//            return Result.failed(SystemError.ARG_ERROR);
+//        }
+        return Result.success(user);
     }
 
     /**
@@ -89,7 +89,8 @@ public class SysUserController extends BaseController {
      */
     @GetMapping("/{id}")
     private Result<?> get(@PathVariable("id") String id) {
-        return Result.success();
+        SysUser user = sysUserService.getById(id);
+        return Result.success(user);
     }
 
     /**

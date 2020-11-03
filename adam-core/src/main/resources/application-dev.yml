@@ -14,24 +14,30 @@ spring:
   datasource:
     druid:
       name: adam-test
-      url: jdbc:mysql://localhost:3306/almas?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://localhost:3306/dawn?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
       username: root
       password: root
-#      validationQuery: SELECT 1 FROM DUAL
-#      filters: [stat,wall,log4j]
+      validationQuery: SELECT 1 FROM DUAL
+      filters: [stat,wall,log4j]
 #      useGlobalDataSourceStat: true
-#      test-while-idle: false
-      stat-view-servlet:
+      testOnBorrow: false
+      #指明是否在归还到池中前进行检验
+      testOnReturn: false
+      testWhileIdle: true
+      asyncInit: true
+      statViewServlet:
         enabled: true
         url-pattern: /druid/*
-      web-stat-filter:
+      webStatFilter:
         enabled: true
         url-pattern: /*
 
 
 mybatis-plus:
   typeAliasesPackage: com.yyovo.adam.**.model.pojo
-  typeEnumsPackage: com.yyovo.adam.**.model.enums
+  typeEnumsPackage: com.yyovo.adam.**.constant
+#  configuration.default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+
   #  mapperLocations:/
   #  mapperLocations: classpath*:/mapper/**/*.xml
   configuration:

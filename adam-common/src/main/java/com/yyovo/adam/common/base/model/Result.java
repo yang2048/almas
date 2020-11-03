@@ -3,14 +3,17 @@ package com.yyovo.adam.common.base.model;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.dialect.Props;
+import com.yyovo.adam.common.handler.IErrorType;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 
 @Slf4j
 @Data
+@Accessors(chain = true)
 @ApiModel(value = "请求结果响应体")
 public class Result<T> implements Serializable {
     private boolean success;
@@ -65,7 +68,7 @@ public class Result<T> implements Serializable {
     public Result(Integer code, String msg) {
         this.success = false;
         this.code = code;
-        this.msg = StrUtil.isEmpty(getMsg(code)) ? msg : getMsg(code);
+        this.msg = msg;
     }
 
     private Result(String msg, T data) {
@@ -102,16 +105,16 @@ public class Result<T> implements Serializable {
         return new Result<>(msg);
     }
 
-    public static <T> Result<T> failed(Integer code, String msg) {
-        return new Result<>(code, msg);
+    public static <T> Result<T> failed(IErrorType errorType) {
+        return new Result<>(errorType.getCode(), errorType.getMsg());
     }
 
-    public static <T> Result<T> failed(Integer code, String msg, T data) {
-        return new Result<>(code, msg, data);
+    public static <T> Result<T> failed(IErrorType errorType, T data) {
+        return new Result<>(errorType.getCode(), errorType.getMsg(), data);
     }
 
     /**
-     * @param key
+     * @param key 键
      * @return
      * @description 获取key对应的属性值
      */

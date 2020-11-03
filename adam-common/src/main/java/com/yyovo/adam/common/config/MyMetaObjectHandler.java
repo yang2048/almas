@@ -15,6 +15,11 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
+        Object registerIp = getFieldValByName("registerIp", metaObject);
+        Object registerTime = getFieldValByName("registerTime", metaObject);
+        Object lastLoginIp = getFieldValByName("lastLoginIp", metaObject);
+        Object lastLoginTime = getFieldValByName("lastLoginTime", metaObject);
+
         Object createTime = getFieldValByName("createdTime", metaObject);
         Object createdBy =getFieldValByName("createdBy", metaObject);
         Object updatedTime = getFieldValByName("updatedTime", metaObject);
@@ -22,6 +27,23 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         Object deleted =getFieldValByName("deleted", metaObject);
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         System.out.println("==> 请求者的IP："+request.getRemoteAddr());
+        String ip = request.getHeader("X-Real-IP");
+        if (Objects.isNull(ip)) {
+            ip = request.getHeader("x-forwarded-for");
+        }
+        if (registerIp == null) {
+            setFieldValByName("registerIp", ip, metaObject);
+        }
+        if (registerTime == null) {
+            setFieldValByName("registerTime", LocalDateTime.now(), metaObject);
+        }
+        if (lastLoginIp == null) {
+            setFieldValByName("lastLoginIp", ip, metaObject);
+        }
+        if (lastLoginTime == null) {
+            setFieldValByName("lastLoginTime", LocalDateTime.now(), metaObject);
+        }
+
         if (createdBy == null) {
             setFieldValByName("createdBy", "admin", metaObject);
         }
@@ -47,6 +69,19 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
+        Object lastLoginIp = getFieldValByName("lastLoginIp", metaObject);
+        Object lastLoginTime = getFieldValByName("lastLoginTime", metaObject);
+        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        String ip = request.getHeader("X-Real-IP");
+        if (Objects.isNull(ip)) {
+            ip = request.getHeader("x-forwarded-for");
+        }
+        if (lastLoginIp == null) {
+            setFieldValByName("lastLoginIp", ip, metaObject);
+        }
+        if (lastLoginTime == null) {
+            setFieldValByName("lastLoginTime", LocalDateTime.now(), metaObject);
+        }
         setFieldValByName("updatedBy", "admin", metaObject);
         setFieldValByName("updatedTime", LocalDateTime.now(), metaObject);
     }

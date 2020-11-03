@@ -114,28 +114,26 @@
         </encoder>
     </appender>
 
+    <logger name="com.yyovo.adam" level="DEBUG" additivity="true" />
+
     <logger level="INFO" name="org.springframework"/>
     <logger level="WARN" name="org.mybatis"/>
     <logger level="WARN" name="com.baomidou.mybatisplus"/>
 <!--    <logger level="INFO" name="org.hibernate"/>-->
 <!--    <logger level="INFO" name="io.netty"/>-->
 <!--    <logger level="INFO" name="io.lettuce"/>-->
-<!--    <logger level="INFO" name="org.apache"/>-->
+    <logger level="INFO" name="org.apache"/>
 
     <!-- 开发环境 + 测试环境. -->
     <springProfile name="test, dev, uat">
-        <root>
-            <!-- 打印debug级别日志及以上级别日志 -->
-            <level value="DEBUG"/>
-            <!-- 控制台输出 -->
+        <root level="DEBUG">
             <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
 
     <!-- 生产环境. -->
     <springProfile name="prod">
-        <root>
-            <level value="DEBUG" />
+        <root level="DEBUG">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="APP"/>
             <appender-ref ref="WARN"/>

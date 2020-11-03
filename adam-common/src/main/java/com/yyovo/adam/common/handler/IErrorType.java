@@ -1,6 +1,6 @@
 package com.yyovo.adam.common.handler;
 
-public interface ErrorType {
+public interface IErrorType {
 
     int getCode();
 

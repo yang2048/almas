@@ -2,6 +2,7 @@ package com.yyovo.adam.admin.system.model.dto;
 
 import com.yyovo.adam.admin.system.constant.GenderEnum;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,8 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 public class UserEditDTO {
     @ApiModelProperty(value = "机构id 可同时属多部门")
     private Long deptId;

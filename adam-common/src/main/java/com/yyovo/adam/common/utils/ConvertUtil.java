@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class ObjectConvertUtils {
+public class ConvertUtil {
     /**
      * 1.对象属性复制
      *
