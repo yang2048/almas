@@ -1,24 +1,22 @@
-package com.yyovo.adam.admin.system.model.dto;
+package com.yyovo.adam.admin.system.model.vo;
 
 import com.yyovo.adam.admin.system.constant.GenderEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
-public class UserEditDTO {
+public class UserVO implements Serializable {
+
+    @ApiModelProperty(value = "主键ID")
+    private Long id;
+
     @ApiModelProperty(value = "机构id 可同时属多部门")
     private Long deptId;
 
-    @NotBlank(message = "用户账号不能为空")
-//    @Size(min = 6, max = 11, message = "账号长度必须是6-11个字符")
     @ApiModelProperty(value = "用户名")
     private String userAccount;
 
@@ -34,12 +32,9 @@ public class UserEditDTO {
     @ApiModelProperty(value = "生日")
     private LocalDate birthday;
 
-    @NotNull(message = "用户手机不能为空")
     @ApiModelProperty(value = "手机")
     private String phone;
 
-    @NotBlank(message = "用户邮箱不能为空")
-    @Email(message = "邮箱格式不正确")
     @ApiModelProperty(value = "邮箱")
     private String email;
 
@@ -49,4 +44,15 @@ public class UserEditDTO {
     @ApiModelProperty(value = "备注")
     private String remark;
 
+    @ApiModelProperty(value = "注册ip")
+    private String registerIp;
+
+    @ApiModelProperty(value = "注册时间")
+    private LocalDateTime registerTime;
+
+    @ApiModelProperty(value = "最后登录ip")
+    private String lastLoginIp;
+
+    @ApiModelProperty(value = "最后登录时间")
+    private LocalDateTime lastLoginTime;
 }

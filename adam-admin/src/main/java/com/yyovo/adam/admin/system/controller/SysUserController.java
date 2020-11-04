@@ -1,22 +1,21 @@
 package com.yyovo.adam.admin.system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yyovo.adam.admin.system.model.dto.UserEditDTO;
 import com.yyovo.adam.admin.system.model.dto.UserQueryDTO;
 import com.yyovo.adam.admin.system.model.pojo.SysUser;
+import com.yyovo.adam.admin.system.model.vo.UserVO;
 import com.yyovo.adam.admin.system.service.ISysUserService;
 import com.yyovo.adam.common.base.controller.BaseController;
 import com.yyovo.adam.common.base.model.Result;
 import com.yyovo.adam.common.utils.ConvertUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -30,100 +29,90 @@ import java.util.List;
 @RequestMapping("/sysUser")
 public class SysUserController extends BaseController {
 
-    @Autowired
-    private ISysUserService sysUserService;
+    private final ISysUserService sysUserService;
+    public SysUserController(ISysUserService sysUserService){
+        this.sysUserService = sysUserService;
+    }
 
     /**
      * 添加
-     *
-     * @param user
-     * @return
+     * @param userEditDTO 请求参数
+     * @return R
      */
     @PostMapping
-    private Result<?> add(@RequestBody @Valid UserEditDTO userEditDTO) {
-//        SysUser user = new SysUser();
-//        user.setNickname("admin");
-//        user.setUserAccount("admin");
-//        user.setDeptId(0L);
-//        user.setUserType("0");
-//        user.setPhone("138000000000");
-//        user.setEmail("123");
+    private Result<?> edit(@RequestBody @Valid UserEditDTO userEditDTO) {
         SysUser user = ConvertUtil.copyToDest(userEditDTO, SysUser.class);
         sysUserService.save(user);
-
-//        if (StrUtil.isBlank(user.getRemark())) {
-//            throw new ApiRuntimeException(SystemError.ARG_ERROR);
-//            return Result.failed(SystemError.ARG_ERROR);
-//        }
-        return Result.success(user);
+        return Result.success(ConvertUtil.copyToDest(user, UserVO.class));
     }
 
     /**
      * 修改
      *
-     * @param id
-     * @param user
-     * @return
+     * @param id 主键
+     * @param userEditDTO 请求参数
+     * @return R
      */
-    @PatchMapping
-    private Result<?> update(@PathVariable("id") String id, @RequestBody UserEditDTO user) {
-        return Result.success();
-    }
-
-    /**
-     * 删除
-     *
-     * @param id
-     * @return
-     */
-    @DeleteMapping
-    private Result<?> remove(@PathVariable("id") String id) {
-        return Result.success();
+    @PatchMapping("{id}")
+    private Result<?> edit(@PathVariable("id") Long id, @RequestBody UserEditDTO userEditDTO) {
+        SysUser user = ConvertUtil.copyToDest(userEditDTO, SysUser.class);
+        user.setId(id);
+        sysUserService.updateById(user);
+        return Result.success(ConvertUtil.copyToDest(user, UserVO.class));
     }
 
     /**
      * 获取
      *
-     * @param id
-     * @return
+     * @param id 主键
+     * @return R
      */
     @GetMapping("/{id}")
     private Result<?> get(@PathVariable("id") String id) {
         SysUser user = sysUserService.getById(id);
-        return Result.success(user);
+        return Result.success(ConvertUtil.copyToDest(user, UserVO.class));
     }
 
     /**
      * 获取列表
      *
-     * @param user 用户
-     * @return
+     * @param userQueryDTO 查询参数
+     * @return R
      */
     @GetMapping
-    private Result<?> fetch(UserQueryDTO user) {
-        LambdaQueryWrapper<SysUser> a= Wrappers.lambdaQuery();
-        a.eq(SysUser::getAvatar, "q");
-        a.orderByDesc(SysUser::getId);
+    private Result<?> get(UserQueryDTO userQueryDTO) {
+        LambdaQueryWrapper<SysUser> ew = Wrappers.lambdaQuery();
+//        ew.eq(SysUser::getAvatar, "q");
+//        ew.orderByDesc(SysUser::getRegisterTime);
 
-        QueryWrapper<SysUser> wrapper = Wrappers.query();
-        wrapper.select("age, count(age) as count")
-               .groupBy("age");
+        Page<SysUser> page = new Page<>(userQueryDTO.getCurrent(), userQueryDTO.getSize());
+        page.setSearchCount(true);
+        page.addOrder(OrderItem.asc("register_time"));
+        page = sysUserService.page(page, ew);
+        return Result.success(ConvertUtil.copyToPage(page, UserVO.class));
+    }
 
-        IPage<SysUser> page = new Page<>(1, 5);
-        page = sysUserService.page(page, a);
-
-        List<SysUser> userList = page.getRecords();
-        return Result.success(page);
+    /**
+     * 删除
+     *
+     * @param id 主键
+     * @return R
+     */
+    @DeleteMapping("{id}")
+    private Result<?> remove(@PathVariable("id") String id) {
+        sysUserService.removeById(id);
+        return Result.success();
     }
 
     /**
      * 批量删除
      *
-     * @param idList
-     * @return
+     * @param idList 主键集合
+     * @return R
      */
     @PostMapping("remove")
-    private Result<?> removeBatch(@RequestParam String idList) {
+    private Result<?> remove(@RequestParam Long[] idList) {
+        sysUserService.removeByIds(Arrays.asList(idList));
         return Result.success();
     }
 

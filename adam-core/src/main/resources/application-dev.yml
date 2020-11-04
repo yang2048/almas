@@ -38,7 +38,6 @@ mybatis-plus:
   typeEnumsPackage: com.yyovo.adam.**.constant
 #  configuration.default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
 
-  #  mapperLocations:/
   #  mapperLocations: classpath*:/mapper/**/*.xml
   configuration:
     #自动驼峰命名规则

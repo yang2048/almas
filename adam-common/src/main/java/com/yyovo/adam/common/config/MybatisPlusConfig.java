@@ -1,6 +1,7 @@
 package com.yyovo.adam.common.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,13 +10,24 @@ import org.springframework.context.annotation.Configuration;
 public class MybatisPlusConfig {
 
     /**
-     * 分页插件
+     * 插件配置
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-//        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         return interceptor;
+    }
+
+    /**
+     * 分页插件配置
+     */
+    @Bean
+    public PaginationInnerInterceptor paginationInterceptor() {
+        PaginationInnerInterceptor paginationInterceptor = new PaginationInnerInterceptor();
+        // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
+        // paginationInterceptor.setOverflow(false);
+        return paginationInterceptor;
     }
 
     /**
@@ -30,8 +42,6 @@ public class MybatisPlusConfig {
 
     /**
      * 自定义填充公共
-     *
-     * @return
      */
     @Bean
     public MyMetaObjectHandler metaObjectHandler() {
@@ -40,7 +50,6 @@ public class MybatisPlusConfig {
 
     /**
      * 自定义 SqlInjector
-     * 里面包含自定义的全局方法
      */
     @Bean
     public MyLogicSqlInjector myLogicSqlInjector() {

@@ -10,7 +10,7 @@ import lombok.Setter;
 public class UserQueryDTO extends BasePage {
 
     @ApiModelProperty(value = "主键ID")
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value = "用户名")
     private String userAccount;

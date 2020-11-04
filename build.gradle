@@ -1,5 +1,11 @@
 buildscript {
     ext {
+        if (!project.hasProperty("env")) {
+            println '没有配置数据环境，默认使用 开发环境'
+            env = "dev"
+        }
+        println "当前使用的部署环境为:${project['env']}"
+
         springBootVersion = '2.3.4.RELEASE'
     }
 

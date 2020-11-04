@@ -116,13 +116,16 @@
 
     <logger name="com.yyovo.adam" level="DEBUG" additivity="true" />
 
-    <logger level="INFO" name="org.springframework"/>
+    <logger level="WARN" name="org.springframework"/>
     <logger level="WARN" name="org.mybatis"/>
     <logger level="WARN" name="com.baomidou.mybatisplus"/>
-<!--    <logger level="INFO" name="org.hibernate"/>-->
-<!--    <logger level="INFO" name="io.netty"/>-->
-<!--    <logger level="INFO" name="io.lettuce"/>-->
+    <logger level="INFO" name="springfox"/>
+    <logger level="INFO" name="org.hibernate"/>
+    <logger level="INFO" name="io.netty"/>
+    <logger level="INFO" name="io.lettuce"/>
     <logger level="INFO" name="org.apache"/>
+    <logger level="INFO" name="org.quartz"/>
+    <logger level="INFO" name="com.github.xiaoymin"/>
 
     <!-- 开发环境 + 测试环境. -->
     <springProfile name="test, dev, uat">

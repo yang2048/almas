@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class BaseModel implements Serializable {
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value = "创建人")
     @TableField(value = "created_by", fill = FieldFill.INSERT)
