@@ -3,7 +3,7 @@ package com.yyovo.adam.common.utils;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yyovo.adam.common.handler.ApiRuntimeException;
-import com.yyovo.adam.common.handler.SystemError;
+import com.yyovo.adam.common.handler.ErrorType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
@@ -25,7 +25,7 @@ public class ConvertUtil {
 //            log.debug("转换之前数据 ==> {}", source);
 //            log.debug("转换之后数据 <== {}", target);
         } catch (Exception e) {
-            throw new ApiRuntimeException(SystemError.SYSTEM_CONVERT);
+            throw new ApiRuntimeException(ErrorType.SYSTEM_CONVERT);
         }
     }
 
@@ -47,7 +47,7 @@ public class ConvertUtil {
 //            log.debug("转换之后数据 <== {}", t);
             return t;
         } catch (Exception e) {
-            throw new ApiRuntimeException(SystemError.SYSTEM_CONVERT);
+            throw new ApiRuntimeException(ErrorType.SYSTEM_CONVERT);
         }
     }
 

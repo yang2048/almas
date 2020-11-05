@@ -26,7 +26,7 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
             try {
                 return objectMapper.writeValueAsString(Result.success(data));
             } catch (JsonProcessingException e) {
-                throw new ApiRuntimeException(SystemError.SYSTEM_CONVERT);
+                throw new ApiRuntimeException(ErrorType.SYSTEM_CONVERT);
             }
         }
         return Result.success(data);

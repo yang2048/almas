@@ -3,6 +3,7 @@ package com.yyovo.adam.common.handler;
 import com.yyovo.adam.common.base.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -71,7 +72,10 @@ public class CommonsExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public Result commonsRuntimeException(Exception e) {
-        log.warn("msg:{} ==> /n", e.getMessage(), e);
+        if(e instanceof DuplicateKeyException){
+            return Result.failed(ErrorType.DUPLICATE_PRIMARY_KEY);
+        }
+        log.warn("msg:{} ==> ", e.getMessage(), e);
         return Result.failed(e.getMessage());
     }
 

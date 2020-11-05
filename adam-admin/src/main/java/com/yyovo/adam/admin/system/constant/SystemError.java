@@ -1,5 +1,6 @@
-package com.yyovo.adam.common.handler;
+package com.yyovo.adam.admin.system.constant;
 
+import com.yyovo.adam.common.handler.IErrorType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,10 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SystemError implements IErrorType {
 
-    SYSTEM_ERROR(-1, "系统异常"),
-    SYSTEM_BUSY(500, "系统繁忙,请稍候再试"),
-    ARG_ERROR(10001, "参数异常"),
-    SYSTEM_CONVERT(10002, "数据转换错误");
+    SYSTEM_ERROR(-1, "系统异常");
 
     /**
      * 错误类型码

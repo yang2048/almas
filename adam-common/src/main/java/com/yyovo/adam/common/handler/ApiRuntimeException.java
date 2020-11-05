@@ -12,7 +12,7 @@ public class ApiRuntimeException extends RuntimeException implements Serializabl
     private IErrorType errorType;
 
     public ApiRuntimeException() {
-        this.errorType = SystemError.SYSTEM_ERROR;
+        this.errorType = ErrorType.SYSTEM_ERROR;
     }
 
     public ApiRuntimeException(IErrorType errorType) {
