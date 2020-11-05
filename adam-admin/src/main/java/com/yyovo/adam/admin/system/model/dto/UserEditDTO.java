@@ -1,15 +1,16 @@
 package com.yyovo.adam.admin.system.model.dto;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yyovo.adam.admin.system.constant.GenderEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
@@ -31,10 +32,12 @@ public class UserEditDTO {
     @ApiModelProperty(value = "性别 1:男 2:女")
     private GenderEnum gender;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "生日")
     private LocalDate birthday;
 
     @NotNull(message = "用户手机不能为空")
+//    @Pattern(regexp = "^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$", message = "手机号码格式错误")
     @ApiModelProperty(value = "手机")
     private String phone;
 

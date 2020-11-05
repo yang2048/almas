@@ -54,8 +54,8 @@ public class CommonsExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Result<?> apiRuntimeException(HttpMessageNotReadableException e) {
-        log.warn("【数据格式异常】 => 描述: {}", e.getMessage());
-        return Result.failed(e.getMessage());
+        log.warn("【数据格式异常】 => {}", e.getMessage());
+        return Result.failed("【数据格式异常】 => %s", e.getMessage());
     }
 
     @ExceptionHandler(ApiRuntimeException.class)

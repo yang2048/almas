@@ -1,9 +1,12 @@
 package com.yyovo.adam.admin.system.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yyovo.adam.admin.system.constant.GenderEnum;
 import com.yyovo.adam.admin.system.model.dto.UserEditDTO;
 import com.yyovo.adam.admin.system.model.dto.UserQueryDTO;
 import com.yyovo.adam.admin.system.model.pojo.SysUser;
@@ -82,6 +85,9 @@ public class SysUserController extends BaseController {
     @GetMapping
     private Result<?> get(UserQueryDTO userQueryDTO) {
         LambdaQueryWrapper<SysUser> ew = Wrappers.lambdaQuery();
+        if (StrUtil.isNullOrUndefined(userQueryDTO.getGender())) {
+            ew.eq(SysUser::getGender, GenderEnum.convert(userQueryDTO.getGender()));
+        }
 //        ew.eq(SysUser::getAvatar, "q");
 //        ew.orderByDesc(SysUser::getRegisterTime);
 

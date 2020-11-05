@@ -35,11 +35,12 @@ spring:
 
 mybatis-plus:
   typeAliasesPackage: com.yyovo.adam.**.model.pojo
-  typeEnumsPackage: com.yyovo.adam.**.constant
+#  typeEnumsPackage: com.yyovo.adam.**.constant
 #  configuration.default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
 
   #  mapperLocations: classpath*:/mapper/**/*.xml
   configuration:
+    defaultEnumTypeHandler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
     #自动驼峰命名规则
     map-underscore-to-camel-case: true
   global-config:

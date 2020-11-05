@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 
 @Slf4j
 @Data
@@ -103,6 +104,10 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> failed(String msg) {
         return new Result<>(msg);
+    }
+
+    public static <T> Result<T> failed(String msg, Object... arguments) {
+        return new Result<>(String.format(msg, arguments));
     }
 
     public static <T> Result<T> failed(IErrorType errorType) {
