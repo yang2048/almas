@@ -57,21 +57,22 @@ subprojects {
 
     //配置依赖
     dependencies {
+        implementation "org.springframework.boot:spring-boot-starter-aop"
+        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
-        implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:2.0.5'
-	    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+        implementation 'org.springframework.boot:spring-boot-starter-amqp'
         implementation 'org.springframework.boot:spring-boot-starter-quartz'
-        compile 'cn.hutool:hutool-all:5.4.4'
         compile("org.springframework.boot:spring-boot-starter-actuator")
         implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.0'
-
+        implementation 'com.github.xiaoymin:knife4j-spring-boot-starter:2.0.5'
+        implementation 'com.alibaba:druid-spring-boot-starter:1.2.1'
         //代码生成
         implementation 'com.baomidou:mybatis-plus-generator:3.4.0'
         implementation 'org.apache.velocity:velocity-engine-core:2.2'
-
-        implementation 'com.alibaba:druid-spring-boot-starter:1.2.1'
-        implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'redis.clients:jedis:2.9.3'
+        compile 'cn.hutool:hutool-all:5.4.4'
+        compile 'com.alibaba:fastjson:1.2.74'
         compileOnly 'org.projectlombok:lombok'
         runtimeOnly 'mysql:mysql-connector-java'
         annotationProcessor 'org.projectlombok:lombok'
@@ -79,8 +80,6 @@ subprojects {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
         testImplementation 'org.springframework.amqp:spring-rabbit-test'
-
-        compile 'com.alibaba:fastjson:1.2.74'
     }
     dependencyManagement {
         imports {

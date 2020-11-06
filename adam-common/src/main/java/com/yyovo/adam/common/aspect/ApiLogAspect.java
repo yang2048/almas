@@ -3,6 +3,7 @@ package com.yyovo.adam.common.aspect;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
 import com.yyovo.adam.common.aspect.annotation.ApiLog;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
@@ -11,8 +12,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Iterator;
 
+@Slf4j
 @Aspect
 @Component
 public class ApiLogAspect {
@@ -32,32 +35,36 @@ public class ApiLogAspect {
      * @throws Throwable
      */
     @Around("logPointCut()")
-    public void around(ProceedingJoinPoint point) throws Throwable {
+    public Object around(ProceedingJoinPoint point) throws Throwable {
         TimeInterval timer = DateUtil.timer();
 
-        System.out.println("EXECUTION 调用方法:" + point.getSignature().getName());
-        System.out.println("EXECUTION 目标对象：" + point.getTarget());
-        System.out.println("EXECUTION 首个参数：" + point.getArgs()[0]);
         System.out.println("ANNOTATION 调用类：" + point.getSignature().getDeclaringTypeName());
-        System.out.println("ANNOTATION 调用类名" + point.getSignature().getDeclaringType().getSimpleName());
+        System.out.println("EXECUTION 调用方法:" + point.getSignature().getName());
+
+        Iterator it = Arrays.stream(point.getArgs()).iterator();
+        StringBuilder sb = new StringBuilder();
+        it.forEachRemaining(i -> sb.append(i));
+        System.out.println("EXECUTION 参数：" + sb);
+//        System.out.println("ANNOTATION 调用类名" + point.getSignature().getDeclaringType().getSimpleName());
 
         MethodSignature signature = (MethodSignature) point.getSignature();
-        Method method = signature.getMethod();
-        //请求的方法名
-        String className = point.getTarget().getClass().getName();
-        String methodName = signature.getName();
-        ApiLog apiLog = method.getAnnotation(ApiLog.class);
+        ApiLog apiLog = signature.getMethod().getAnnotation(ApiLog.class);
         System.out.println("ANNOTATION welcome==>"+ apiLog.value());
+
+
 
         //获取request
 //        HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
-        //返回花费时间，并重置开始时间
-        long time = timer.intervalRestart();
 
         //保存日志
 //        saveSysLog(point, time, result);
 
-        point.proceed();
+        Object ob = point.proceed();
+
+        Thread.sleep(1000);
+        long time = timer.intervalRestart();
+        System.out.println("时间 ==>"+ time);
+        return ob;
     }
 
     /**
