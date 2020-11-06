@@ -5,17 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yyovo.adam.admin.system.model.enums.GenderEnum;
-import com.yyovo.adam.admin.system.model.enums.SystemError;
 import com.yyovo.adam.admin.system.model.dto.UserEditDTO;
 import com.yyovo.adam.admin.system.model.dto.UserQueryDTO;
+import com.yyovo.adam.admin.system.model.enums.GenderEnum;
+import com.yyovo.adam.admin.system.model.enums.SystemError;
 import com.yyovo.adam.admin.system.model.pojo.SysUser;
 import com.yyovo.adam.admin.system.model.vo.UserVO;
 import com.yyovo.adam.admin.system.service.ISysUserService;
+import com.yyovo.adam.common.aspect.annotation.ApiLog;
 import com.yyovo.adam.common.base.controller.BaseController;
 import com.yyovo.adam.common.base.model.Result;
 import com.yyovo.adam.common.utils.ConvertUtil;
-import com.yyovo.adam.common.aspect.annotation.ApiLog;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,11 +44,12 @@ public class SysUserController extends BaseController {
      * @return R
      */
     @PostMapping
-    private Result<?> edit(@RequestBody @Valid UserEditDTO userEditDTO) {
+    @ApiLog(value = "添加用户", operateType = 2)
+    public Result<?> edit(@RequestBody @Valid UserEditDTO userEditDTO) {
         int count = sysUserService.count(Wrappers.<SysUser>lambdaQuery()
-                    .or().eq(SysUser::getUserAccount, userEditDTO.getUserAccount())
-                    .or().eq(SysUser::getEmail, userEditDTO.getEmail())
-                    .or().eq(SysUser::getPhone, userEditDTO.getPhone()));
+                .or().eq(SysUser::getUserAccount, userEditDTO.getUserAccount())
+                .or().eq(SysUser::getEmail, userEditDTO.getEmail())
+                .or().eq(SysUser::getPhone, userEditDTO.getPhone()));
         if (count > 0) {
             return Result.failed(SystemError.USER_REGISTERED);
         }
@@ -65,7 +66,8 @@ public class SysUserController extends BaseController {
      * @return R
      */
     @PatchMapping("{id}")
-    private Result<?> edit(@PathVariable("id") Long id, @RequestBody UserEditDTO userEditDTO) {
+    @ApiLog(value = "修改用户", operateType = 3)
+    public Result<?> edit(@PathVariable("id") Long id, @RequestBody UserEditDTO userEditDTO) {
         SysUser user = ConvertUtil.copyToDest(userEditDTO, SysUser.class);
         user.setId(id);
         sysUserService.updateById(user);
@@ -79,7 +81,8 @@ public class SysUserController extends BaseController {
      * @return R
      */
     @GetMapping("/{id}")
-    private Result<?> get(@PathVariable("id") String id) {
+    @ApiLog(value = "获取用户", operateType = 1)
+    public Result<?> get(@PathVariable("id") String id) {
         SysUser user = sysUserService.getById(id);
         return Result.success(ConvertUtil.copyToDest(user, UserVO.class));
     }
@@ -90,9 +93,9 @@ public class SysUserController extends BaseController {
      * @param userQueryDTO 查询参数
      * @return R
      */
-    @ApiLog(value="获取用户列表", operateType=1)
     @GetMapping
-    private Result<?> get(UserQueryDTO userQueryDTO) {
+    @ApiLog(value = "获取用户列表", operateType = 1)
+    public Result<?> get(UserQueryDTO userQueryDTO) {
         LambdaQueryWrapper<SysUser> ew = Wrappers.lambdaQuery();
         if (!StrUtil.isEmptyOrUndefined(userQueryDTO.getGender())) {
             ew.eq(SysUser::getGender, GenderEnum.convert(userQueryDTO.getGender()));
@@ -114,7 +117,8 @@ public class SysUserController extends BaseController {
      * @return R
      */
     @DeleteMapping("{id}")
-    private Result<?> remove(@PathVariable("id") String id) {
+    @ApiLog(value = "删除用户", operateType = 4)
+    public Result<?> remove(@PathVariable("id") String id) {
         sysUserService.removeById(id);
         return Result.success();
     }
@@ -126,7 +130,8 @@ public class SysUserController extends BaseController {
      * @return R
      */
     @PostMapping("remove")
-    private Result<?> remove(@RequestParam Long[] idList) {
+    @ApiLog(value = "批量删除用户", operateType = 4)
+    public Result<?> remove(@RequestParam Long[] idList) {
         sysUserService.removeByIds(Arrays.asList(idList));
         return Result.success();
     }

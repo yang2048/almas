@@ -2,8 +2,8 @@ package com.yyovo.adam.admin.system.model.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.yyovo.adam.common.handler.ApiRuntimeException;
 import com.yyovo.adam.common.base.enums.ErrorType;
+import com.yyovo.adam.common.handler.ApiRuntimeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -27,26 +27,17 @@ public enum GenderEnum {
 
     /**
      * 枚举转换
-     * @param genderValue 描述desc
+     * @param value 描述desc
      * @return Enum
      */
-    public static GenderEnum convert(String genderValue){
+    public static GenderEnum convert(String value){
         for (GenderEnum gender : GenderEnum.values()) {
-            if (gender.desc.equals(genderValue)) {
+            if (gender.desc.equals(value)) {
                 return gender;
             }
         }
-        throw new ApiRuntimeException(ErrorType.ENUM_NOT_VALID);
-    }
-
-    /**
-     * 枚举转换
-     * @param code 记录值code
-     * @return Enum
-     */
-    public static GenderEnum convert(int code){
         for (GenderEnum gender : GenderEnum.values()) {
-            if (gender.code == code) {
+            if (gender.code == Integer.parseInt(value)) {
                 return gender;
             }
         }
