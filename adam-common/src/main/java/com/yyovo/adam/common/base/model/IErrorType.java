@@ -1,4 +1,4 @@
-package com.yyovo.adam.common.handler;
+package com.yyovo.adam.common.base.model;
 
 public interface IErrorType {
 

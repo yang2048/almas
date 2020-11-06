@@ -20,10 +20,10 @@ spring:
       validationQuery: SELECT 1 FROM DUAL
       filters: [stat,wall,log4j]
 #      useGlobalDataSourceStat: true
-      testOnBorrow: false
+#      testOnBorrow: false
       #指明是否在归还到池中前进行检验
-      testOnReturn: false
-      testWhileIdle: true
+#      testOnReturn: false
+      testWhileIdle: false
       asyncInit: true
       statViewServlet:
         enabled: true

@@ -1,4 +1,4 @@
-package com.yyovo.adam.common.base.constant;
+package com.yyovo.adam.common.base.enums;
 
 import lombok.Getter;
 

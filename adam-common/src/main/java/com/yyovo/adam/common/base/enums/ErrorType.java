@@ -1,5 +1,6 @@
-package com.yyovo.adam.common.handler;
+package com.yyovo.adam.common.base.enums;
 
+import com.yyovo.adam.common.base.model.IErrorType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

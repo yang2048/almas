@@ -1,5 +1,7 @@
 package com.yyovo.adam.common.handler;
 
+import com.yyovo.adam.common.base.model.IErrorType;
+import com.yyovo.adam.common.base.enums.ErrorType;
 import lombok.Getter;
 import lombok.Setter;
 

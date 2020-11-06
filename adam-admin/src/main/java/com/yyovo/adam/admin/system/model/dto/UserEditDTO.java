@@ -1,13 +1,8 @@
 package com.yyovo.adam.admin.system.model.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.yyovo.adam.admin.system.constant.GenderEnum;
+import com.yyovo.adam.admin.system.model.enums.GenderEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
@@ -51,5 +46,8 @@ public class UserEditDTO {
 
     @ApiModelProperty(value = "备注")
     private String remark;
+
+    @ApiModelProperty(value = "状态 0:否 1:是")
+    private Integer disable;
 
 }

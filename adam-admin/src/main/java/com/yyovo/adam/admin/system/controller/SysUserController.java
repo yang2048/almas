@@ -3,10 +3,10 @@ package com.yyovo.adam.admin.system.controller;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yyovo.adam.admin.system.constant.GenderEnum;
+import com.yyovo.adam.admin.system.model.enums.GenderEnum;
+import com.yyovo.adam.admin.system.model.enums.SystemError;
 import com.yyovo.adam.admin.system.model.dto.UserEditDTO;
 import com.yyovo.adam.admin.system.model.dto.UserQueryDTO;
 import com.yyovo.adam.admin.system.model.pojo.SysUser;
@@ -15,6 +15,7 @@ import com.yyovo.adam.admin.system.service.ISysUserService;
 import com.yyovo.adam.common.base.controller.BaseController;
 import com.yyovo.adam.common.base.model.Result;
 import com.yyovo.adam.common.utils.ConvertUtil;
+import com.yyovo.adam.common.aspect.annotation.ApiLog;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,6 +45,13 @@ public class SysUserController extends BaseController {
      */
     @PostMapping
     private Result<?> edit(@RequestBody @Valid UserEditDTO userEditDTO) {
+        int count = sysUserService.count(Wrappers.<SysUser>lambdaQuery()
+                    .or().eq(SysUser::getUserAccount, userEditDTO.getUserAccount())
+                    .or().eq(SysUser::getEmail, userEditDTO.getEmail())
+                    .or().eq(SysUser::getPhone, userEditDTO.getPhone()));
+        if (count > 0) {
+            return Result.failed(SystemError.USER_REGISTERED);
+        }
         SysUser user = ConvertUtil.copyToDest(userEditDTO, SysUser.class);
         sysUserService.save(user);
         return Result.success(ConvertUtil.copyToDest(user, UserVO.class));
@@ -82,10 +90,11 @@ public class SysUserController extends BaseController {
      * @param userQueryDTO 查询参数
      * @return R
      */
+    @ApiLog(value="获取用户列表", operateType=1)
     @GetMapping
     private Result<?> get(UserQueryDTO userQueryDTO) {
         LambdaQueryWrapper<SysUser> ew = Wrappers.lambdaQuery();
-        if (StrUtil.isNullOrUndefined(userQueryDTO.getGender())) {
+        if (!StrUtil.isEmptyOrUndefined(userQueryDTO.getGender())) {
             ew.eq(SysUser::getGender, GenderEnum.convert(userQueryDTO.getGender()));
         }
 //        ew.eq(SysUser::getAvatar, "q");

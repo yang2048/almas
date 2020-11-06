@@ -1,23 +1,18 @@
 package com.yyovo.adam.common.handler;
 
 import com.yyovo.adam.common.base.model.Result;
+import com.yyovo.adam.common.base.enums.ErrorType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.text.MessageFormat;
 import java.util.stream.Collectors;
 
 /**
@@ -29,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @RestControllerAdvice
-public class CommonsExceptionHandler {
+public class CommonsExceptionAdvice {
 
     //处理Get请求中 使用@Valid 验证路径中请求实体校验失败后抛出的异常，详情继续往下看代码
     @ExceptionHandler(BindException.class)
@@ -76,7 +71,7 @@ public class CommonsExceptionHandler {
             return Result.failed(ErrorType.DUPLICATE_PRIMARY_KEY);
         }
         log.warn("msg:{} ==> ", e.getMessage(), e);
-        return Result.failed(e.getMessage());
+        return Result.failed(ErrorType.SYSTEM_ERROR);
     }
 
 }

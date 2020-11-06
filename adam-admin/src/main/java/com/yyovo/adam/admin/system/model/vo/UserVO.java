@@ -1,7 +1,7 @@
 package com.yyovo.adam.admin.system.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.yyovo.adam.admin.system.constant.GenderEnum;
+import com.yyovo.adam.admin.system.model.enums.GenderEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

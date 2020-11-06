@@ -1,14 +1,9 @@
 package com.yyovo.adam.admin.system.model.dto;
 
-import com.yyovo.adam.admin.system.constant.GenderEnum;
 import com.yyovo.adam.common.base.model.BasePage;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -29,4 +24,6 @@ public class UserQueryDTO extends BasePage {
     @ApiModelProperty(value = "邮箱")
     private String email;
 
+    @ApiModelProperty(value = "状态 0:否 1:是")
+    private Integer disable;
 }

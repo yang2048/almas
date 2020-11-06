@@ -1,7 +1,7 @@
 package com.yyovo.adam.admin.system.model.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.yyovo.adam.admin.system.constant.GenderEnum;
+import com.yyovo.adam.admin.system.model.enums.GenderEnum;
 import com.yyovo.adam.common.base.model.BaseModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -75,5 +75,5 @@ public class SysUser extends BaseModel {
     private LocalDateTime lastLoginTime;
 
     @ApiModelProperty(value = "状态 0:否 1:是")
-    private String disable;
+    private Integer disable;
 }

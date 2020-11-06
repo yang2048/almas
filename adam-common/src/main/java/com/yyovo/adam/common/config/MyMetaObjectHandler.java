@@ -58,7 +58,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         }
         if (deleted == null) {
             //0:正常，1:删除
-            setFieldValByName("deleted", "0", metaObject);
+            setFieldValByName("deleted", 0, metaObject);
         }
 
     }

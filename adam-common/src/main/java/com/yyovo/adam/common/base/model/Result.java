@@ -3,14 +3,12 @@ package com.yyovo.adam.common.base.model;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.dialect.Props;
-import com.yyovo.adam.common.handler.IErrorType;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
-import java.text.MessageFormat;
 
 @Slf4j
 @Data

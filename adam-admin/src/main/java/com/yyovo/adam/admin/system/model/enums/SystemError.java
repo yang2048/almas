@@ -1,6 +1,6 @@
-package com.yyovo.adam.admin.system.constant;
+package com.yyovo.adam.admin.system.model.enums;
 
-import com.yyovo.adam.common.handler.IErrorType;
+import com.yyovo.adam.common.base.model.IErrorType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,7 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum SystemError implements IErrorType {
 
-    SYSTEM_ERROR(-1, "系统异常");
+    USER_REGISTERED(100001, "该数据已存在"),
+    SYSTEM_ERROR(100002, "是");
 
     /**
      * 错误类型码

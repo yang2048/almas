@@ -32,5 +32,5 @@ public class BaseModel implements Serializable {
     @ApiModelProperty(value = "是否删除 0:正常，1:删除")
     @TableField(value = "deleted", fill = FieldFill.INSERT)
     @TableLogic
-    private String deleted;
+    private Integer deleted;
 }
