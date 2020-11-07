@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class BaseModel implements Serializable {
+public class SuperModel implements Serializable {
     @ApiModelProperty(value = "主键ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;

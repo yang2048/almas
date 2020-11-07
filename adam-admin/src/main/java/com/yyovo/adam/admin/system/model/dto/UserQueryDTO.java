@@ -1,13 +1,13 @@
 package com.yyovo.adam.admin.system.model.dto;
 
-import com.yyovo.adam.common.base.model.BasePage;
+import com.yyovo.adam.common.base.model.SuperPage;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserQueryDTO extends BasePage {
+public class UserQueryDTO extends SuperPage {
 
     @ApiModelProperty(value = "用户名")
     private String userAccount;

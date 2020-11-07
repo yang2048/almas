@@ -13,7 +13,6 @@ import com.yyovo.adam.admin.system.model.pojo.SysUser;
 import com.yyovo.adam.admin.system.model.vo.UserVO;
 import com.yyovo.adam.admin.system.service.ISysUserService;
 import com.yyovo.adam.common.aspect.annotation.ApiLog;
-import com.yyovo.adam.common.base.controller.BaseController;
 import com.yyovo.adam.common.base.model.Result;
 import com.yyovo.adam.common.utils.ConvertUtil;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +30,7 @@ import java.util.Arrays;
  */
 @RestController
 @RequestMapping("/sysUser")
-public class SysUserController extends BaseController {
+public class SysUserController {
 
     private final ISysUserService sysUserService;
     public SysUserController(ISysUserService sysUserService){
@@ -45,7 +44,7 @@ public class SysUserController extends BaseController {
      */
     @PostMapping
     @ApiLog(value = "添加用户", operateType = 2)
-    public Result<?> edit(@RequestBody @Valid UserEditDTO userEditDTO) {
+    public Result<?> save(@RequestBody @Valid UserEditDTO userEditDTO) {
         int count = sysUserService.count(Wrappers.<SysUser>lambdaQuery()
                 .or().eq(SysUser::getUserAccount, userEditDTO.getUserAccount())
                 .or().eq(SysUser::getEmail, userEditDTO.getEmail())
@@ -67,7 +66,7 @@ public class SysUserController extends BaseController {
      */
     @PatchMapping("{id}")
     @ApiLog(value = "修改用户", operateType = 3)
-    public Result<?> edit(@PathVariable("id") Long id, @RequestBody UserEditDTO userEditDTO) {
+    public Result<?> update(@PathVariable("id") Long id, @RequestBody UserEditDTO userEditDTO) {
         SysUser user = ConvertUtil.copyToDest(userEditDTO, SysUser.class);
         user.setId(id);
         sysUserService.updateById(user);
@@ -95,7 +94,7 @@ public class SysUserController extends BaseController {
      */
     @GetMapping
     @ApiLog(value = "获取用户列表", operateType = 1)
-    public Result<?> get(UserQueryDTO userQueryDTO) {
+    public Result<?> page(UserQueryDTO userQueryDTO) {
         LambdaQueryWrapper<SysUser> ew = Wrappers.lambdaQuery();
         if (!StrUtil.isEmptyOrUndefined(userQueryDTO.getGender())) {
             ew.eq(SysUser::getGender, GenderEnum.convert(userQueryDTO.getGender()));
@@ -131,7 +130,7 @@ public class SysUserController extends BaseController {
      */
     @PostMapping("remove")
     @ApiLog(value = "批量删除用户", operateType = 4)
-    public Result<?> remove(@RequestParam Long[] idList) {
+    public Result<?> BatchRemove(@RequestParam Long[] idList) {
         sysUserService.removeByIds(Arrays.asList(idList));
         return Result.success();
     }

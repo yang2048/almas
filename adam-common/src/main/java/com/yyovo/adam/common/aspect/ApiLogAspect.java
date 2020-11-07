@@ -61,7 +61,6 @@ public class ApiLogAspect {
 
         Object ob = point.proceed();
 
-        Thread.sleep(1000);
         long time = timer.intervalRestart();
         System.out.println("时间 ==>"+ time);
         return ob;

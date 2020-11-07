@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class BasePage implements Serializable {
+public class SuperPage implements Serializable {
     /**
      * 每页显示条数，默认 10
      */

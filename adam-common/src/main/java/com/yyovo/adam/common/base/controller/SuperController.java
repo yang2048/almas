@@ -1,4 +1,4 @@
 package com.yyovo.adam.common.base.controller;
 
-public class BaseController {
+public class SuperController {
 }
