@@ -30,49 +30,11 @@
         </encoder>
     </appender>
 
-    <!-- ERROR -->
-    <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender -->
     <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 过滤器，只记录WARN级别的日志 -->
-        <!-- 果日志级别等于配置级别，过滤器会根据onMath 和 onMismatch接收或拒绝日志。 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <!-- 设置过滤级别 -->
             <level>ERROR</level>
-            <!-- 用于配置符合过滤条件的操作 -->
             <onMatch>ACCEPT</onMatch>
-            <!-- 用于配置不符合过滤条件的操作 -->
-            <onMismatch>DENY</onMismatch>
-        </filter>
-        <!-- 最常用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责触发滚动 -->
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!--日志输出位置 可相对、和绝对路径 -->
-            <fileNamePattern>
-                ${log.home_dir}/${log.app_name}/error/%d{yyyy-MM-dd}.%i.log
-            </fileNamePattern>
-            <!-- 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件,假设设置每个月滚动，且<maxHistory>是6，
-            则只保存最近6个月的文件，删除之前的旧文件。注意，删除旧文件是，那些为了归档而创建的目录也会被删除 -->
-            <maxHistory>${log.maxHistory}</maxHistory>
-            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
-            <!--日志文件最大的大小-->
-            <MaxFileSize>${log.maxSize}</MaxFileSize>
-        </rollingPolicy>
-        <append>true</append>
-        <encoder charset="utf-8">
-            <pattern>
-                <!-- 设置日志输出格式 -->
-                |--%d{yyyy-MM-dd HH:mm:SSS} [%-5level] [%thread] [%logger{50}:%line] %msg%n
-            </pattern>
-        </encoder>
-    </appender>
-
-    <!-- WARN -->
-    <!-- 滚动记录文件，先将日志记录到指定文件，当符合某个条件时，将日志记录到其他文件 RollingFileAppender -->
-    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 过滤器，只记录WARN级别的日志 -->
-        <!-- 果日志级别等于配置级别，过滤器会根据onMath 和 onMismatch接收或拒绝日志。 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>WARN</level>
-<!--            <onMatch>ACCEPT</onMatch>-->
             <onMismatch>DENY</onMismatch>
         </filter>
         <!-- 最常用的滚动策略，它根据时间来制定滚动策略.既负责滚动也负责触发滚动 -->
@@ -114,34 +76,22 @@
         </encoder>
     </appender>
 
-    <logger name="com.yyovo.adam" level="DEBUG" additivity="true" />
-
-    <logger level="WARN" name="org.springframework"/>
-    <logger level="WARN" name="org.mybatis"/>
-    <logger level="WARN" name="com.baomidou.mybatisplus"/>
-    <logger level="INFO" name="springfox"/>
-    <logger level="INFO" name="org.hibernate"/>
-    <logger level="INFO" name="io.netty"/>
-    <logger level="INFO" name="io.lettuce"/>
-    <logger level="INFO" name="org.apache"/>
-    <logger level="INFO" name="org.quartz"/>
-    <logger level="INFO" name="com.github.xiaoymin"/>
-
     <!-- 开发环境 + 测试环境. -->
     <springProfile name="test, dev, uat">
-        <root level="DEBUG">
+        <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>
+        <logger name="com.yyovo.adam" level="DEBUG" additivity="true" />
     </springProfile>
 
     <!-- 生产环境. -->
     <springProfile name="prod">
-        <root level="DEBUG">
+        <root level="INFO">
             <appender-ref ref="CONSOLE"/>
             <appender-ref ref="APP"/>
-            <appender-ref ref="WARN"/>
             <appender-ref ref="ERROR"/>
         </root>
+        <logger name="com.yyovo.adam" level="INFO" additivity="true" />
     </springProfile>
 
 </configuration>

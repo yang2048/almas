@@ -2,7 +2,11 @@ package com.yyovo.adam.common.aspect;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
-import com.yyovo.adam.common.aspect.annotation.ApiLog;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.yyovo.adam.common.base.model.WebLog;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -11,7 +15,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -23,7 +31,7 @@ public class ApiLogAspect {
     /**
      * 定义切点
      */
-    @Pointcut("@annotation(com.yyovo.adam.common.aspect.annotation.ApiLog)")
+    @Pointcut("execution(public * com.yyovo.adam.admin.system.controller.*.*(..)) || execution(public * com.yyovo.adam.*.controller.*.*(..))")
     public void logPointCut() {
 
     }
@@ -36,34 +44,43 @@ public class ApiLogAspect {
      */
     @Around("logPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        TimeInterval timer = DateUtil.timer();
-
-        System.out.println("ANNOTATION 调用类：" + point.getSignature().getDeclaringTypeName());
-        System.out.println("EXECUTION 调用方法:" + point.getSignature().getName());
+        TimeInterval timer = new TimeInterval();
+        long startTime = timer.start();
 
         Iterator it = Arrays.stream(point.getArgs()).iterator();
         StringBuilder sb = new StringBuilder();
         it.forEachRemaining(i -> sb.append(i));
-        System.out.println("EXECUTION 参数：" + sb);
-//        System.out.println("ANNOTATION 调用类名" + point.getSignature().getDeclaringType().getSimpleName());
 
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+
+        WebLog webLog = new WebLog();
         MethodSignature signature = (MethodSignature) point.getSignature();
-        ApiLog apiLog = signature.getMethod().getAnnotation(ApiLog.class);
-        System.out.println("ANNOTATION welcome==>"+ apiLog.value());
+        Method method = signature.getMethod();
+        if (method.isAnnotationPresent(ApiOperation.class)) {
+            ApiOperation log = method.getAnnotation(ApiOperation.class);
+            StringBuilder description = new StringBuilder(log.value());
+            if (StringUtils.isNotBlank(log.notes())) {
+                description.append("【"+ log.notes() +"】");
+            }
+            webLog.setDescription(description.toString());
+        }
+        Object result = point.proceed();
+        String urlStr = request.getRequestURL().toString();
+        webLog.setUsername(request.getRemoteUser());
+        webLog.setIp(request.getRemoteAddr());
+        webLog.setMethod(request.getMethod());
+        webLog.setParameter(sb.toString());
+        webLog.setResult(result.toString());
+        webLog.setStartTime(startTime);
+        webLog.setSpendTime((int) timer.intervalRestart());
+        webLog.setUri(request.getRequestURI());
+        webLog.setUrl(request.getRequestURL().toString());
+        webLog.setBasePath(StrUtil.removeSuffix(urlStr, URLUtil.url(urlStr).getPath()));
+        webLog.setClassName(point.getSignature().getDeclaringTypeName() + "=>" + point.getSignature().getName());
 
-
-
-        //获取request
-//        HttpServletRequest request = SpringContextUtils.getHttpServletRequest();
-
-        //保存日志
-//        saveSysLog(point, time, result);
-
-        Object ob = point.proceed();
-
-        long time = timer.intervalRestart();
-        System.out.println("时间 ==>"+ time);
-        return ob;
+        log.info(webLog.toString());
+        return result;
     }
 
     /**
