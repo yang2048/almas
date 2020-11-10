@@ -34,7 +34,6 @@ import java.util.Arrays;
 public class SysDeptController extends SuperController {
 
     private final ISysDeptService sysDeptService;
-
     public SysDeptController(ISysDeptService sysDeptService) {
         this.sysDeptService = sysDeptService;
     }
