@@ -29,7 +29,7 @@ import java.util.Arrays;
  * @author Yang.Yong
  * @since 2020-10-09
  */
-@Api(value = "系统用户表")
+@Api(value = "系统用户")
 @RestController
 @RequestMapping("/sysUser")
 public class SysUserController {
@@ -105,7 +105,6 @@ public class SysUserController {
 //        ew.orderByDesc(SysUser::getRegisterTime);
 
         Page<SysUser> page = new Page<>(userQueryDTO.getCurrent(), userQueryDTO.getSize());
-        page.setSearchCount(true);
         page.addOrder(OrderItem.asc("register_time"));
         page = sysUserService.page(page, ew);
         return Result.success(ConvertUtil.copyToPage(page, UserVO.class));

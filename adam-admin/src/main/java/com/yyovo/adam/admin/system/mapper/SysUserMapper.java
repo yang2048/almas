@@ -1,7 +1,7 @@
 package com.yyovo.adam.admin.system.mapper;
 
 import com.yyovo.adam.admin.system.model.pojo.SysUser;
-import com.yyovo.adam.common.base.dao.SuperMapper;
+import com.yyovo.adam.common.base.mapper.SuperMapper;
 import org.springframework.stereotype.Repository;
 
 /**

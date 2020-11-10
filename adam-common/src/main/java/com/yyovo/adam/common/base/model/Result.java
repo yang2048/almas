@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @Accessors(chain = true)
 @ApiModel(value = "请求结果响应体")
-public class Result<T> implements Serializable {
+public class Result<T> {
     @ApiModelProperty(value = "状态")
     private boolean success;
     @ApiModelProperty(value = "状态码")

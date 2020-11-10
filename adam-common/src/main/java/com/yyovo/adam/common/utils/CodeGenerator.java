@@ -37,20 +37,21 @@ public class CodeGenerator {
 
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
-        String projectPath = System.getProperty("user.dir");
         // 全局配置
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setOutputDir(System.getProperty("user.dir") + "/src/main/java");
-        globalConfig.setAuthor("Yang.Yong");
+        globalConfig.setAuthor("Yong.Yang");
         globalConfig.setOpen(false);
         globalConfig.setSwagger2(true);
         globalConfig.setIdType(IdType.ASSIGN_ID);
+        globalConfig.setBaseResultMap(true);
+        globalConfig.setBaseColumnList(true);
 
         DataSourceConfig dataSourceConfig = new DataSourceConfig();
-        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/dawn?useUnicode=true&useSSL=false&characterEncoding=utf8");
-        dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
+        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/almas?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
         dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("123456");
+        dataSourceConfig.setPassword("root");
 
         // 包配置
         PackageConfig pc = new PackageConfig();
@@ -69,11 +70,6 @@ public class CodeGenerator {
                 // to do nothing
             }
         };
-
-        // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
-        // 如果模板引擎是 velocity
-        // String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
         List<FileOutConfig> focList = new ArrayList<>();
@@ -106,34 +102,34 @@ public class CodeGenerator {
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
-
-        // 配置自定义输出模板
-        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        // templateConfig.setEntity("templates/entity2.java");
-        // templateConfig.setService();
-        // templateConfig.setController();
-
-        templateConfig.setXml(null);
+        templateConfig.setEntity("/templates/entity.java");
+        templateConfig.setEntityKt("/templates/entity.kt");
+        templateConfig.setService("/templates/service.java");
+        templateConfig.setServiceImpl("/templates/serviceImpl.java");
+        templateConfig.setMapper("/templates/mapper.java");
+        templateConfig.setXml("/templates/mapper.xml");
+        templateConfig.setController("/templates/controller.java");
         mpg.setTemplate(templateConfig);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-//        strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         // 公共父类
 //        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id","created_by","created_time","updated_by","updated_time","deleted");
-        strategy.setSuperEntityClass("com.yyovo.adam.common.base.model.pojo");
-        strategy.setEntityLombokModel(true);
-        strategy.setSuperControllerClass("com.yyovo.adam.common.base.controller.BaseController");
-        strategy.setSuperMapperClass("com.yyovo.core.base.dao.SuperMapper");
+        strategy.setSuperEntityClass("com.yyovo.adam.common.base.model.SuperModel");
+        strategy.setSuperControllerClass("com.yyovo.adam.common.base.controller.SuperController");
+        strategy.setSuperMapperClass("com.yyovo.adam.common.base.mapper.SuperMapper");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+        strategy.setEntityLombokModel(true);
+        strategy.setRestControllerStyle(true);
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix("y_");
+//        strategy.setLogicDeleteFieldName("deleted");
         mpg.setStrategy(strategy);
         mpg.execute();
 
