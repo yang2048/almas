@@ -14,6 +14,7 @@ import com.yyovo.adam.admin.system.model.vo.UserVO;
 import com.yyovo.adam.admin.system.service.ISysUserService;
 import com.yyovo.adam.common.base.model.Result;
 import com.yyovo.adam.common.utils.ConvertUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ import java.util.Arrays;
  * @author Yang.Yong
  * @since 2020-10-09
  */
+@Api(value = "系统用户表")
 @RestController
 @RequestMapping("/sysUser")
 public class SysUserController {

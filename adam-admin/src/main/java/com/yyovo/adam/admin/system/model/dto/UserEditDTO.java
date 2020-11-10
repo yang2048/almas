@@ -1,6 +1,7 @@
 package com.yyovo.adam.admin.system.model.dto;
 
 import com.yyovo.adam.admin.system.model.enums.GenderEnum;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,6 +10,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
+@ApiModel(value="SysUser对象", description="系统用户")
 public class UserEditDTO {
     @ApiModelProperty(value = "机构id 可同时属多部门")
     private Long deptId;

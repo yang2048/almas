@@ -2,6 +2,7 @@ package com.yyovo.adam.admin.system.model.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yyovo.adam.admin.system.model.enums.GenderEnum;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
+@ApiModel(value="SysUser对象", description="系统用户信息")
 public class UserVO implements Serializable {
 
     @ApiModelProperty(value = "主键ID")

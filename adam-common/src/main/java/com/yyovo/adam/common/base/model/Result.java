@@ -4,6 +4,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.setting.dialect.Props;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
@@ -15,9 +16,13 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @ApiModel(value = "请求结果响应体")
 public class Result<T> implements Serializable {
+    @ApiModelProperty(value = "状态")
     private boolean success;
+    @ApiModelProperty(value = "状态码")
     private Integer code;
+    @ApiModelProperty(value = "描述")
     private String msg;
+    @ApiModelProperty(value = "结果集")
     private T data;
 
     public static Integer FAILED = -1;

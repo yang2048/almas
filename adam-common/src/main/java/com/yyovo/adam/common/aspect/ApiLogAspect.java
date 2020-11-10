@@ -14,13 +14,15 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.lang.reflect.Parameter;
+import java.util.*;
 
 @Slf4j
 @Aspect
@@ -46,10 +48,6 @@ public class ApiLogAspect {
         TimeInterval timer = new TimeInterval();
         long startTime = timer.start();
 
-        Iterator it = Arrays.stream(point.getArgs()).iterator();
-        StringBuilder sb = new StringBuilder();
-        it.forEachRemaining(i -> sb.append(i));
-
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
@@ -69,7 +67,29 @@ public class ApiLogAspect {
         webLog.setUsername(request.getRemoteUser());
         webLog.setIp(request.getRemoteAddr());
         webLog.setMethod(request.getMethod());
-        webLog.setParameter(sb.toString());
+        //打印请求参数
+        Map<String, String[]> paramMap = request.getParameterMap();
+        if (paramMap != null && paramMap.size() > 0) {
+            StringBuffer paramSbf = new StringBuffer();
+            for (String mapKey : paramMap.keySet()) {
+                String[] mapValue = paramMap.get(mapKey);
+                //添加判断
+                if (mapValue != null && mapValue.length > 0) {
+                    for (String paramStr : mapValue) {
+                        if (StrUtil.isNotBlank(paramStr)) {
+                            paramSbf.append("" + mapKey + "=");
+                            paramSbf.append(paramStr);
+                        }
+                    }
+                }
+            }
+//            Iterator it = Arrays.stream(point.getArgs()).iterator();
+//            StringBuilder sb = new StringBuilder();
+//            it.forEachRemaining(i -> sb.append(i));
+
+            webLog.setParameter(paramSbf.toString());
+//            log.info("-->request请求参数 : \t" + paramSbf);
+        }
         webLog.setResult(result.toString());
         webLog.setStartTime(startTime);
         webLog.setSpendTime((int) timer.intervalRestart());
