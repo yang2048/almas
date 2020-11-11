@@ -18,15 +18,14 @@
     <property name="log.maxHistory" value="30"/>
     <!-- 超过2G清除 -->
     <property name="log.totalSizeCap" value="2GB"/>
-    <property name="log.maxSize" value="50MB"/>
+    <property name="log.maxSize" value="50MB" />
 
     <!-- ConsoleAppender 控制台输出日志 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
                 <!-- 设置日志输出格式 -->
-                |--%red(%d{yyyy-MM-dd HH:mm:SSS}) %highlight([%-5level]) %green([%thread]) [%boldMagenta(%logger):%line]
-                %cyan(%msg%n)
+                |--%red(%d{yyyy-MM-dd HH:mm:SSS}) %highlight([%-5level]) %green([%thread]) [%boldMagenta(%logger):%line] %cyan(%msg%n)
             </pattern>
         </encoder>
     </appender>
@@ -82,7 +81,7 @@
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>
-        <logger name="com.yyovo.adam" level="DEBUG" additivity="true"/>
+        <logger name="com.yyovo.adam" level="DEBUG" additivity="true" />
     </springProfile>
 
     <!-- 生产环境. -->
@@ -92,7 +91,7 @@
             <appender-ref ref="APP"/>
             <appender-ref ref="ERROR"/>
         </root>
-        <logger name="com.yyovo.adam" level="INFO" additivity="true"/>
+        <logger name="com.yyovo.adam" level="INFO" additivity="true" />
     </springProfile>
 
 </configuration>
