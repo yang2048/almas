@@ -18,11 +18,11 @@ spring:
       username: root
       password: root
       validationQuery: SELECT 1 FROM DUAL
-      filters: [stat,wall,log4j]
-#      useGlobalDataSourceStat: true
-#      testOnBorrow: false
+      filters: [ stat,wall,log4j ]
+      #      useGlobalDataSourceStat: true
+      #      testOnBorrow: false
       #指明是否在归还到池中前进行检验
-#      testOnReturn: false
+      #      testOnReturn: false
       testWhileIdle: false
       asyncInit: true
       statViewServlet:
@@ -35,8 +35,8 @@ spring:
 
 mybatis-plus:
   typeAliasesPackage: com.yyovo.adam.**.model.pojo
-#  typeEnumsPackage: com.yyovo.adam.**.constant
-#  configuration.default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+  #  typeEnumsPackage: com.yyovo.adam.**.constant
+  #  configuration.default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
 
   #  mapperLocations: classpath*:/mapper/**/*.xml
   configuration:

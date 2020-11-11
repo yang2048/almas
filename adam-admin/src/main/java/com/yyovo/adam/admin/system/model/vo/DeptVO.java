@@ -7,9 +7,12 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@ApiModel(value="SysDept对象", description="系统部门信息")
+@ApiModel(value = "SysDeptVO对象", description = "系统部门信息")
 public class DeptVO implements Serializable {
 
+    /**
+     * 主键
+     */
     @ApiModelProperty(value = "主键ID")
     private Long id;
 

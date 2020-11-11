@@ -1,28 +1,16 @@
-package com.yyovo.adam.admin.system.model.pojo;
+package com.yyovo.adam.admin.system.model.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.yyovo.adam.common.base.model.SuperModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * <p>
- * 系统权限表
- * </p>
- *
- * @author Yong.Yang
- * @since 2020-11-10
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("y_sys_menu")
-@ApiModel(value = "SysMenu对象", description = "系统权限表")
-public class SysMenu extends SuperModel {
+import java.io.Serializable;
 
-    private static final long serialVersionUID = 1L;
-
+@Getter
+@Setter
+@ApiModel(value = "系统权限菜单", description = "MenuEditDTO")
+public class MenuEditDTO implements Serializable {
     /**
      * 父级id
      */
@@ -45,7 +33,7 @@ public class SysMenu extends SuperModel {
      * 菜单类型 1:菜单 2:按钮
      */
     @ApiModelProperty(value = "菜单类型 1:菜单 2:按钮")
-    private Boolean type;
+    private Integer type;
 
     /**
      * 菜单项标题
@@ -99,12 +87,11 @@ public class SysMenu extends SuperModel {
      * 是否可见 0:否 1:是
      */
     @ApiModelProperty(value = "是否可见 0:否 1:是")
-    private String visible;
+    private Boolean visible;
 
     /**
      * 禁用状态 0:否 1:是
      */
     @ApiModelProperty(value = "禁用状态 0:否 1:是")
     private Boolean disabled;
-
 }

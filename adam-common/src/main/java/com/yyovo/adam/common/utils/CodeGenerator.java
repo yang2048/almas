@@ -120,7 +120,7 @@ public class CodeGenerator {
         // 公共父类
 //        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id","created_by","created_time","updated_by","updated_time","deleted");
+        strategy.setSuperEntityColumns("id", "created_by", "created_time", "updated_by", "updated_time", "deleted");
         strategy.setSuperEntityClass("com.yyovo.adam.common.base.model.SuperModel");
         strategy.setSuperControllerClass("com.yyovo.adam.common.base.controller.SuperController");
         strategy.setSuperMapperClass("com.yyovo.adam.common.base.mapper.SuperMapper");

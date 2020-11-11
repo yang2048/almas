@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * <p>
  * 系统机构表
@@ -13,8 +15,8 @@ import lombok.Data;
  * @since 2020-11-10
  */
 @Data
-@ApiModel(value="SysDept对象", description="系统机构表")
-public class DeptEditDTO {
+@ApiModel(value = "系统机构", description = "DeptEditDTO")
+public class DeptEditDTO implements Serializable {
 
     /**
      * 父部门id

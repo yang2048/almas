@@ -33,7 +33,7 @@ public class ConvertUtil {
     /**
      * 2.对象转化,生成需要的对象
      *
-     * @param source   源对象
+     * @param source 源对象
      * @param tClass 目标对象
      * @param <T>    目标对象 类型
      * @return 目标对象实体
@@ -55,8 +55,8 @@ public class ConvertUtil {
      * 3.列表转换
      *
      * @param sourceList 源列表
-     * @param tClass  目标列表元素类型
-     * @param <T>     目标列表元素类型
+     * @param tClass     目标列表元素类型
+     * @param <T>        目标列表元素类型
      * @return 目标列表
      */
     public static <T, V> List<V> copyToList(List<T> sourceList, Class<V> tClass) {

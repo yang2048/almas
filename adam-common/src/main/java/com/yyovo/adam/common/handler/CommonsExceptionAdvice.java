@@ -63,13 +63,14 @@ public class CommonsExceptionAdvice {
 
     /**
      * 自定义异常捕获
+     *
      * @param e
      * @return
      */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = Exception.class)
     public Result commonsRuntimeException(Exception e) {
-        if(e instanceof DuplicateKeyException){
+        if (e instanceof DuplicateKeyException) {
             return Result.failed(ErrorType.DUPLICATE_PRIMARY_KEY);
         }
         log.warn("msg:{} ==> ", e.getMessage(), e);

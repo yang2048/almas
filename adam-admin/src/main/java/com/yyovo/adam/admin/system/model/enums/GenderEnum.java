@@ -27,10 +27,11 @@ public enum GenderEnum {
 
     /**
      * 枚举转换
+     *
      * @param value 描述desc
      * @return Enum
      */
-    public static GenderEnum convert(String value){
+    public static GenderEnum convert(String value) {
         for (GenderEnum gender : GenderEnum.values()) {
             if (gender.desc.equals(value)) {
                 return gender;

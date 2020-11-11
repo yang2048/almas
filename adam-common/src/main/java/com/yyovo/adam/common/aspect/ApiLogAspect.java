@@ -36,6 +36,7 @@ public class ApiLogAspect {
 
     /**
      * 环绕型增强通知
+     *
      * @param point
      * @return
      * @throws Throwable
@@ -55,7 +56,7 @@ public class ApiLogAspect {
             ApiOperation log = method.getAnnotation(ApiOperation.class);
             StringBuilder description = new StringBuilder(log.value());
             if (StringUtils.isNotBlank(log.notes())) {
-                description.append("【"+ log.notes() +"】");
+                description.append("【" + log.notes() + "】");
             }
             webLog.setDescription(description.toString());
         }
@@ -102,7 +103,7 @@ public class ApiLogAspect {
     /**
      * 异常通知
      */
-    @AfterThrowing(throwing="ex", pointcut="logPointCut()")
+    @AfterThrowing(throwing = "ex", pointcut = "logPointCut()")
     public void doRecoveryActions(Throwable ex) {
         System.out.println("目标方法中抛出的异常:" + ex);
         System.out.println("模拟抛出异常后的增强处理...");

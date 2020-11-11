@@ -21,12 +21,12 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         Object lastLoginTime = getFieldValByName("lastLoginTime", metaObject);
 
         Object createTime = getFieldValByName("createdTime", metaObject);
-        Object createdBy =getFieldValByName("createdBy", metaObject);
+        Object createdBy = getFieldValByName("createdBy", metaObject);
         Object updatedTime = getFieldValByName("updatedTime", metaObject);
-        Object updatedBy =getFieldValByName("updatedBy", metaObject);
-        Object deleted =getFieldValByName("deleted", metaObject);
+        Object updatedBy = getFieldValByName("updatedBy", metaObject);
+        Object deleted = getFieldValByName("deleted", metaObject);
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        System.out.println("==> 请求者的IP："+request.getRemoteAddr());
+        System.out.println("==> 请求者的IP：" + request.getRemoteAddr());
         String ip = request.getHeader("X-Real-IP");
         if (Objects.isNull(ip)) {
             ip = request.getHeader("x-forwarded-for");
@@ -64,7 +64,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     }
 
     /**
-     *  自动填充     @TableField(fill = FieldFill.INSERT_UPDATE)
+     * 自动填充     @TableField(fill = FieldFill.INSERT_UPDATE)
+     *
      * @param metaObject
      */
     @Override

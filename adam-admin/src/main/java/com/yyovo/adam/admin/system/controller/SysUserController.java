@@ -19,7 +19,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -35,12 +38,14 @@ import java.util.Arrays;
 public class SysUserController {
 
     private final ISysUserService sysUserService;
-    public SysUserController(ISysUserService sysUserService){
+
+    public SysUserController(ISysUserService sysUserService) {
         this.sysUserService = sysUserService;
     }
 
     /**
      * 添加
+     *
      * @param userEditDTO 请求参数
      * @return R
      */
@@ -62,7 +67,7 @@ public class SysUserController {
     /**
      * 修改
      *
-     * @param id 主键
+     * @param id          主键
      * @param userEditDTO 请求参数
      * @return R
      */
@@ -136,4 +141,16 @@ public class SysUserController {
         return Result.success();
     }
 
+    @GetMapping("login")
+    public Result<?> BatchRemove() {
+        System.out.printf("login===================");
+        SysUser user = sysUserService.getById("1314765829839118338");
+        UserVO userVO = ConvertUtil.copyToDest(user, UserVO.class);
+        String[] arr = {"account"};
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", "234234324234534534");
+        map.put("roles", arr);
+        map.put("userInfo", userVO);
+        return Result.success(map);
+    }
 }

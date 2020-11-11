@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum MessageQueue {
 
-    ADAM_NOTIFY_MSG("wx.pay.notify.queue.name","wx.pay.notify.exchange.name","wx.pay.notify.routing.key.name");
+    ADAM_NOTIFY_MSG("wx.pay.notify.queue.name", "wx.pay.notify.exchange.name", "wx.pay.notify.routing.key.name");
 
 
     private final String queue;

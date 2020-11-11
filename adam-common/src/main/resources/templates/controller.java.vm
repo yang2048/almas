@@ -30,53 +30,53 @@ import ${superControllerClassPackage};
 class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
 
 #else
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} {
-#end
+    #if(${superControllerClass})
+    public class ${table.controllerName} extends ${superControllerClass} {
+    #else
+    public class ${table.controllerName} {
+    #end
 
-    @PostMapping
-    @ApiOperation(value = "添加")
-    public Result<?> save(@RequestBody @Valid) {
-
-        return Result.success();
-    }
-
-    @PatchMapping("{id}")
-    @ApiOperation(value = "修改")
-    public Result<?> update(@PathVariable("id") Long id, @RequestBody) {
+@PostMapping
+@ApiOperation(value = "添加")
+public Result<?> save(@RequestBody @Valid){
 
         return Result.success();
-    }
+        }
 
-    @GetMapping("/{id}")
-    @ApiOperation(value = "获取")
-    public Result<?> get(@PathVariable("id") String id) {
-
-        return Result.success();
-    }
-
-    @GetMapping
-    @ApiOperation(value = "获取列表")
-    public Result<?> page() {
-            LambdaQueryWrapper<SysUser> ew = Wrappers.lambdaQuery();
+@PatchMapping("{id}")
+@ApiOperation(value = "修改")
+public Result<?> update(@PathVariable("id") Long id,@RequestBody){
 
         return Result.success();
-    }
+        }
 
-    @DeleteMapping("{id}")
-    @ApiOperation(value = "删除")
-    public Result<?> remove(@PathVariable("id") String id) {
-
-        return Result.success();
-    }
-
-    @PostMapping("remove")
-    @ApiOperation(value = "批量删除")
-    public Result<?> BatchRemove(@RequestParam Long[] idList) {
+@GetMapping("/{id}")
+@ApiOperation(value = "获取")
+public Result<?> get(@PathVariable("id") String id){
 
         return Result.success();
-    }
-}
+        }
+
+@GetMapping
+@ApiOperation(value = "获取列表")
+public Result<?> page(){
+        LambdaQueryWrapper<SysUser> ew=Wrappers.lambdaQuery();
+
+        return Result.success();
+        }
+
+@DeleteMapping("{id}")
+@ApiOperation(value = "删除")
+public Result<?> remove(@PathVariable("id") String id){
+
+        return Result.success();
+        }
+
+@PostMapping("remove")
+@ApiOperation(value = "批量删除")
+public Result<?> BatchRemove(@RequestParam Long[]idList){
+
+        return Result.success();
+        }
+        }
 #end

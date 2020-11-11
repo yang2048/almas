@@ -3,9 +3,9 @@ archivesBaseName = 'adam-admin'
 description = "this is gradle api demo"
 
 dependencies {
-	implementation project(':adam-common')
+    implementation project(':adam-common')
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }

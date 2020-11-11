@@ -22,7 +22,7 @@ public class SwaggerConfiguration {
 
     @Bean(value = "defaultApi")
     public Docket defaultApi() {
-        Docket docket=new Docket(DocumentationType.SWAGGER_2)
+        Docket docket = new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 //分组名称
                 .groupName("0.0.1版本")

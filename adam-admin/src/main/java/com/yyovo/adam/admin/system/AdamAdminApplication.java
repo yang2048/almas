@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@ComponentScan(basePackages={"com.yyovo.adam.**"})
 public class AdamAdminApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AdamAdminApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AdamAdminApplication.class, args);
+    }
 
 }

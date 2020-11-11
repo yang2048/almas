@@ -18,7 +18,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("y_sys_dept")
-@ApiModel(value="SysDept对象", description="系统机构表")
+@ApiModel(value = "SysDept对象", description = "系统机构表")
 public class SysDept extends SuperModel {
 
     private static final long serialVersionUID = 1L;

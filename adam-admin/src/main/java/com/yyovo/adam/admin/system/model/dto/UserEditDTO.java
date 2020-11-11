@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
-@ApiModel(value="SysUser对象", description="系统用户")
+@ApiModel(value = "系统用户", description = "UserEditDTO")
 public class UserEditDTO {
     @ApiModelProperty(value = "机构id 可同时属多部门")
     private Long deptId;

@@ -13,7 +13,7 @@ public enum ErrorType implements IErrorType {
     ARGUMENT_NOT_VALID(2, "请求参数校验不通过"),
     ENUM_NOT_VALID(3, "枚举对象错误"),
     SUBMIT_REPEAT(4, "操作频繁,请稍候再试"),
-    DUPLICATE_PRIMARY_KEY(5,"当前数据已录入,请更换再试"),
+    DUPLICATE_PRIMARY_KEY(5, "当前数据已录入,请更换再试"),
     SYSTEM_CONVERT(6, "数据转换错误"),
 
     GATEWAY_NOT_FOUND_SERVICE(7, "服务未找到"),

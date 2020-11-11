@@ -1,27 +1,20 @@
-package com.yyovo.adam.admin.system.model.pojo;
+package com.yyovo.adam.admin.system.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.yyovo.adam.common.base.model.SuperModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-/**
- * <p>
- * 系统权限表
- * </p>
- *
- * @author Yong.Yang
- * @since 2020-11-10
- */
+import java.io.Serializable;
+
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("y_sys_menu")
-@ApiModel(value = "SysMenu对象", description = "系统权限表")
-public class SysMenu extends SuperModel {
+@ApiModel(value = "MenuVO对象", description = "系统菜单权限信息")
+public class MenuVO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 主键
+     */
+    @ApiModelProperty(value = "主键ID")
+    private Long id;
 
     /**
      * 父级id
@@ -45,7 +38,7 @@ public class SysMenu extends SuperModel {
      * 菜单类型 1:菜单 2:按钮
      */
     @ApiModelProperty(value = "菜单类型 1:菜单 2:按钮")
-    private Boolean type;
+    private Integer type;
 
     /**
      * 菜单项标题

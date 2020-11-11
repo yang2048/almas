@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
-@ApiModel(value="SysUser对象", description="系统用户信息")
+@ApiModel(value = "SysUserVO对象", description = "系统用户信息")
 public class UserVO implements Serializable {
 
     @ApiModelProperty(value = "主键ID")

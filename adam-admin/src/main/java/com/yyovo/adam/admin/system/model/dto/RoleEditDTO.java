@@ -1,28 +1,16 @@
-package com.yyovo.adam.admin.system.model.pojo;
+package com.yyovo.adam.admin.system.model.dto;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.yyovo.adam.common.base.model.SuperModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-/**
- * <p>
- * 系统角色表
- * </p>
- *
- * @author Yong.Yang
- * @since 2020-11-10
- */
-@Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("y_sys_role")
-@ApiModel(value = "SysRole对象", description = "系统角色表")
-public class SysRole extends SuperModel {
+import java.io.Serializable;
 
-    private static final long serialVersionUID = 1L;
-
+@Getter
+@Setter
+@ApiModel(value = "系统角色", description = "RoleEditDTO")
+public class RoleEditDTO implements Serializable {
     /**
      * 角色代码
      */
@@ -51,7 +39,7 @@ public class SysRole extends SuperModel {
      * 数据权限范围类型 0:自定义 1:全部数据 2:本部门及下属部门 3:仅本部门
      */
     @ApiModelProperty(value = "数据权限范围类型 0:自定义 1:全部数据 2:本部门及下属部门 3:仅本部门")
-    private Boolean scopeType;
+    private Integer scopeType;
 
     /**
      * 数据权限范围
@@ -64,5 +52,4 @@ public class SysRole extends SuperModel {
      */
     @ApiModelProperty(value = "状态 0:否 1:是")
     private Boolean disable;
-
 }
