@@ -22,7 +22,7 @@ access:
       <!-- 头部工具按钮 -->
       <template v-slot:actions>
         <UserAction :dropdown-items="dropdown"
-                    :username="userInfo.name"
+                    :username="userInfo.userInfo.nickname"
                     :extra="userInfo.roles[0]"
                     @command="handleUserCommand"
                     :avatar="{theme: 'primary'}"></UserAction>

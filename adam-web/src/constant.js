@@ -12,5 +12,5 @@ const __MY_CONFIG__ = window.__MY_CONFIG__ || {}
  * 接口服务器
  * @type {*|string}
  */
-export const API_HOST = __MY_CONFIG__.API_HOST || 'http://127.0.0.1:8080'
+export const API_HOST = __MY_CONFIG__.API_HOST || 'http://127.0.0.1:8088'
 
